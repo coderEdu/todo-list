@@ -1,3 +1,13 @@
+<?php 
+if ($_POST) {
+  
+  $title = $_POST['title'];
+  $content = $_POST['content'];
+  include_once "db.php";
+  mysqli_query($conn,"INSERT INTO list (title,content) VALUES ('$title','$content')");
+}
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -15,32 +25,32 @@
   </head>
   <body>
     <div class="container-sm-fluid">
-      <div class="row bg-secondary text-light p-5" style="border-bottom: 8px solid #6495ED;">
+      <div class="row bg-secondary text-light p-5" style="border-bottom: 9px solid #6495ED;">
             <h1><?php echo strtoupper("My daily todo-list") ?></h1>
       </div>
     </div>
     <div class="container">
-      <div class="row mt-5 text-dark">
+      <div class="row mt-5 align-items-center text-dark">
         <div class="col-sm-3 p-3 rounded" style="background-color: #f2f4f4;">
 
           <!-- form to adding new todo list item -->
           <form action="index.php" method="POST">
             <div class="mb-3">
-              <label for="title" class="form-label">Title</label>
+              <label for="inputTitle" class="form-label">Title</label>
               <input type="text" class="form-control" name="title">
             </div>
             <div class="mb-3">
-              <label for="content" class="form-label">Content</label>
+              <label for="inputContent" class="form-label">Content</label>
               <textarea class="form-control" rows="3" name="content"></textarea>
             </div>
             <div class="mb-1">
-              <input type="submit" class="btn btn-success" value="Save">
+              <button type="submit" class="btn btn-success">Save</button>
             </div>
           </form>
 
         </div>
 
-        <div class="col-sm-1"></div> <!-- space between divs-->
+        <div class="col-sm-1 align-middle"><img src="img/right_arrow.png" alt="" width="80"></div> <!-- space between divs-->
 
         <div class="col-sm-8 p-2 rounded" style="background-color: #f2f4f4;">
           <!-- table that shows todo-list items -->
@@ -61,11 +71,10 @@
               <?php include "db.php"; ?>
               <?php $query = mysqli_query($conn, "SELECT * FROM list"); ?>
               <?php while ($data = mysqli_fetch_row($query)) { ?>
-              <?php 
-              if (!strcmp($data[5],'checked')) {?>
-                <tr style="background-color: #b2babb">
+              <?php if (!strcmp($data[5],'checked')) {?>
+                      <tr style="background-color: #b2babb">
               <?php } else { ?>
-                <tr>
+                      <tr>
               <?php } ?>
                 <th scope="row" class="text-center"><?php echo $data[0] ?></th>
                 <td class="text-center"><?php echo $data[1] ?></td>
@@ -74,11 +83,10 @@
                 <td class="text-center"><a href="edit.php?id=<?php echo $data[0] ?>"><i class="far fa-edit"></i></a></td>
                 <td class="text-center"><a href="delete.php?id=<?php echo $data[0] ?>"><i class="far fa-trash-alt"></i></a>
 
-                <?php 
-                if (strcmp($data[5],'checked')) {?>
-                  <td class="text-center"><input type="checkbox" <?php echo $data[5] ?>></td>
+                <?php if (strcmp($data[5],'checked')) {?>
+                        <td class="text-center"><input type="checkbox" <?php echo $data[5] ?>></td>
                 <?php } else { ?>
-                  <td class="text-center"><input type="checkbox" <?php echo $data[5] ?>></td>
+                        <td class="text-center"><input type="checkbox" <?php echo $data[5] ?>></td>
                 <?php } ?>
               </tr>
               <?php } ?>
