@@ -46,8 +46,13 @@ if ($_POST) {
   </head>
   <body>
     <div class="container-sm-fluid">
-      <div class="row bg-secondary text-light p-5" style="border-bottom: 8px solid #6495ED;">
-            <h1><?php echo strtoupper("My daily todo-list") ?></h1>
+      <div class="row text-light p-4 align-items-center bg-secondary" style="border-bottom: 9px solid #6495ED;">
+        <div class="col-sm-1" style="width: 100px;">
+          <img src="img/todo-icon.png" alt="" width="96">
+        </div>
+        <div class="col">
+          <h1 style="display: inline;"><?php echo strtoupper("My daily todo-list") ?></h1>
+        </div>
       </div>
     </div>
     <div class="container">

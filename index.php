@@ -25,8 +25,13 @@ if ($_POST) {
   </head>
   <body>
     <div class="container-sm-fluid">
-      <div class="row bg-secondary text-light p-5" style="border-bottom: 9px solid #6495ED;">
-            <h1><?php echo strtoupper("My daily todo-list") ?></h1>
+      <div class="row text-light p-4 align-items-center" style="border-bottom: 9px solid #6495ED; background-color: #607bab;">
+        <div class="col-sm-1" style="width: 100px;">
+          <img src="img/todo-icon.png" alt="" width="96">
+        </div>
+        <div class="col">
+          <h1 style="display: inline;"><?php echo strtoupper("My daily todo-list") ?></h1>
+        </div>
       </div>
     </div>
     <div class="container">
@@ -72,7 +77,7 @@ if ($_POST) {
               <?php $query = mysqli_query($conn, "SELECT * FROM list"); ?>
               <?php while ($data = mysqli_fetch_row($query)) { ?>
               <?php if (!strcmp($data[5],'checked')) {?>
-                      <tr style="background-color: #b2babb">
+                      <tr style="background-color: #ccd1d1">
               <?php } else { ?>
                       <tr>
               <?php } ?>
@@ -81,7 +86,7 @@ if ($_POST) {
                 <td class="text-center"><?php echo $data[3] ?></td>
                 <td class="text-center"><?php echo $data[4] ?></td>
                 <td class="text-center"><a href="edit.php?id=<?php echo $data[0] ?>"><i class="far fa-edit"></i></a></td>
-                <td class="text-center"><a href="delete.php?id=<?php echo $data[0] ?>"><i class="far fa-trash-alt"></i></a>
+                <td class="text-center"><a href="delete.php?id=<?php echo $data[0] ?>" onclick="return confirm('do you want to delete Y/N ?')"><i class="far fa-trash-alt"></i></a>
 
                 <?php if (strcmp($data[5],'checked')) {?>
                         <td class="text-center"><input type="checkbox" <?php echo $data[5] ?>></td>
