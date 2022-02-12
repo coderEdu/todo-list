@@ -10,13 +10,23 @@ if ($_POST) {
   $id = $_POST['id'];
   $title = $_POST['title'];
   $content = $_POST['content'];
-  //$now = time();
+  $done = $_POST['done'];
+
+  if ($done=='on') {
+    $done = 'checked';
+  } else {
+    $done = '';
+  }
+
+  date_default_timezone_set("America/Argentina/San_Luis");
   $timestamp = date("Y-m-d H:i:s");
   include_once "db.php";
-  mysqli_query($conn,"UPDATE list SET title = '$title', content = '$content', modified = '$timestamp' WHERE id = '$id'");
-  var_dump($id);
+  
+  var_dump($_POST);
+  mysqli_query($conn,"UPDATE list SET title='$title', content='$content', modified='$timestamp', done='$done' WHERE id='$id'");
   header("Location: index.php");
 }
+
 ?>
 
 <!doctype html>
@@ -57,6 +67,10 @@ if ($_POST) {
             <div class="mb-3">
               <label for="inputContent" class="form-label">Content</label>
               <textarea class="form-control" rows="3" name="content"><?php echo $row[2]; ?></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="done" class="form-label">Done</label>
+              <input type="checkbox" name="done" <?php echo $row[5]; ?>>
             </div>
             <div class="mb-1">
               <button type="submit" class="btn btn-success">Save changes</button>
